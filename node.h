@@ -13,6 +13,10 @@ class Node {
   Node* GetNextNode();
   bool ErasePreviousNode();
   bool EraseNextNode();
+private:
+  char rawData;
+  Node* prevNode;
+  Node* nextNode;
 };
 
 #endif  // NODE_H_
