@@ -19,8 +19,7 @@ class TypingMachine {
   std::string Print(char separator);
 private:
 	int size;
-	Node *currentNode,*homeNode, *endNode;
-	Node *preNode, *postNode;
+	Node *currentNode, *homeNode;
 };
 
 #endif  // TYPING_MACHINE_H_

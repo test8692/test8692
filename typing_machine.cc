@@ -5,7 +5,6 @@
 TypingMachine::TypingMachine() {
 	size = 0;
 	homeNode = new Node('-');
-	endNode = homeNode->InsertNextNode('-');
 	currentNode = homeNode;
   return;
 }
@@ -16,7 +15,8 @@ void TypingMachine::HomeKey() {
 }
 
 void TypingMachine::EndKey() {
-	currentNode = endNode;
+	while (currentNode->GetNextNode() != nullptr)
+		currentNode = currentNode->GetNextNode();
   return;
 }
 
@@ -33,16 +33,13 @@ void TypingMachine::RightKey() {
 }
 
 bool TypingMachine::TypeKey(char key) {
-	if (0x20>=key||0x7E<=key)
+	if (0x20>key||0x7E<key)
 		return false;
 	if (size >= 100)
 		return false;
 	
 	currentNode = currentNode->InsertNextNode(key);
 	size++;
-	endNode = currentNode;
-	while (endNode->GetNextNode() != nullptr)
-		endNode = endNode->GetNextNode();
 	return true;
 }
 
@@ -61,9 +58,9 @@ std::string TypingMachine::Print(char separator) {
 	Node* it = homeNode;
 	std::string builder = "";
 	while (it != nullptr) {
-		if (it != homeNode && it != endNode )
+		if (it != homeNode)
 		builder += it->GetData();
-		if (it == currentNode)
+		if (it == currentNode && separator != 0)
 			builder += separator;
 		it = it->GetNextNode();
 	}
